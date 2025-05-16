@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HopStop - Cancel Booking</title>
+    <link rel="stylesheet" href="../style/cancel.css">
+    <script src="../js/cancel.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-circle"></div>
+                <span>HopStop</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="bookings.html">My Bookings</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="user-profile" id="profileBtn">
+                <i>👤</i>
+            </div>
+            <div class="profile-dropdown" id="dropdownMenu">
+                <div class="dropdown-item">View Profile</div>
+                <div class="dropdown-item">Settings</div>
+                <div class="dropdown-item">Logout</div>
+            </div>
+        </header>
+        <section class="main-content">
+            <h2>Cancel Booking</h2>
+
+            <div class="box">
+                <strong>BUS ID:</strong></br>
+                <strong>Date:</strong></br>
+                <strong>From:</strong></br>
+                <strong>To:</strong></br>
+                <strong>Departure:</strong></br>
+                <strong>Arrival:</strong></br>
+                <strong>Price:</strong></br>
+            </div>
+
+            <div class="refund-box">
+                <strong>Refund Policy:</strong>
+                <ul>
+                    <li>Full refund available if canceled 72 hours before departure</li>
+                    <li>50% refund if canceled 24-72 hours before departure</li>
+                    <li>No refund for cancellations less than 24 hours before departure</li>
+                </ul>
+                <strong>Your Estimated Refund:</strong>
+            </div>
+
+            <h2>Reason for Cancellation</h2>
+            <select id="reason">
+            <option>Change of plans</option>
+            <option>Medical emergency</option>
+            <option>Bad weather</option>
+            
+        </select>
+
+            <h2>Refund Method</h2>
+            <select id="refund-method">
+            <option>Bank Transfer</option>
+            <option>Over the counter</option>
+    
+        </select>
+
+            <div class="btn-container">
+                <button class="back-btn">Back</button>
+                <button class="confirm-btn">Confirm Cancellation</button>
+            </div>
+    </div>
+
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileBtn = document.getElementById('profileBtn');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+
+            profileBtn.addEventListener('click', function() {
+                dropdownMenu.classList.toggle('show');
+            });
+
+            // Close dropdown when clicking outside
+            window.addEventListener('click', function(event) {
+                if (!event.target.closest('#profileBtn') && !event.target.closest('#dropdownMenu')) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
