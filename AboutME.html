@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadia | About Me</title>
+
+
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        overflow-x: hidden;
+    }
+    /* Header Styles */
+    
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(135deg, #D4F1F4, #AEE0E6, #8ACCD5);
+        padding: 20px 40px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .logo {
+        font-weight: bold;
+        font-size: 1.8rem;
+        color: #333;
+        letter-spacing: 1px;
+    }
+    
+    .nav-menu ul {
+        list-style: none;
+        display: flex;
+        gap: 30px;
+    }
+    
+    .nav-menu a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        font-size: 1.1rem;
+        position: relative;
+        padding-bottom: 5px;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-menu a:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #333;
+        transition: width 0.3s ease;
+    }
+    
+    .nav-menu a:hover:after,
+    .nav-menu a.current:after {
+        width: 100%;
+    }
+    
+    .login-button {
+        background-color: transparent;
+        border: 2px solid #333;
+        padding: 10px 20px;
+        text-decoration: none;
+        color: #333;
+        border-radius: 30px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .login-button:hover {
+        background-color: #333;
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    /* Cover Section */
+    
+    .cover-section {
+        position: relative;
+        height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    
+    .cover-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('../photos/coverphoto.jpg');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.2;
+        z-index: 0;
+    }
+    
+    .text-wrapper {
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        padding: 0 2rem;
+    }
+    
+    .text-wrapper h1 {
+        font-family: 'Knewave', cursive;
+        font-size: 4rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    .text-wrapper h2 {
+        font-family: 'Delius', cursive;
+        font-size: 1.8rem;
+        color: var(--dark-color);
+        font-weight: 400;
+        margin-bottom: 2rem;
+    }
+    
+    @keyframes float {
+        0% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+        100% {
+            transform: translateY(0px);
+        }
+    }
+    
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            box-shadow: 0 15px 30px var(--shadow-color);
+        }
+        100% {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px var(--shadow-color);
+        }
+    }
+    /* Section Styles */
+    
+    section {
+        padding: 5rem 10%;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 3rem;
+        color: var(--dark-color);
+        position: relative;
+    }
+    
+    .section-title::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 4px;
+        background-color: var(--primary-color);
+        margin: 0.5rem auto 0;
+        border-radius: 2px;
+    }
+    /* Flipping Cards Section */
+    
+    .flipping-card {
+        background-color: #fff;
+        text-align: center;
+    }
+    
+    .flipping-card>p {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 3rem;
+        color: var(--dark-color);
+    }
+    
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        perspective: 1000px;
+    }
+    
+    .card {
+        width: 220px;
+        height: 280px;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+    }
+    
+    .card.flipped {
+        transform: rotateY(180deg);
+    }
+    
+    .card-face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 10px 25px var(--shadow-color);
+    }
+    
+    .card-front {
+        background: linear-gradient(135deg, #D4F1F4, #AEE0E6, #8ACCD5);
+        transform: rotateY(0deg);
+    }
+    
+    .card-back {
+        background: linear-gradient(135deg, #D4F1F4, #AEE0E6, #8ACCD5);
+        color: var(--dark-color);
+        transform: rotateY(180deg);
+        border: 3px solid var(--primary-color);
+    }
+    
+    .card-front p {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+    
+    .card-back p {
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+    
+    .card-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+    /* Polaroid Section */
+    
+    .polaroid {
+        background-color: #f3eeff;
+        padding-bottom: 7rem;
+    }
+    
+    .polaroid-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 40px;
+    }
+    
+    .polaroid-item {
+        width: 220px;
+        background-color: white;
+        padding: 15px 15px 40px;
+        box-shadow: 0 10px 20px var(--shadow-color);
+        transform: rotate(0deg);
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+        cursor: pointer;
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+    
+    .polaroid-item:hover {
+        transform: scale(1.05) rotate(0deg) translateZ(20px);
+        box-shadow: 0 15px 30px var(--shadow-color);
+    }
+    
+    .polaroid-item.active {
+        transform: scale(1.15) rotateY(10deg) translateZ(40px);
+        box-shadow: 0 20px 40px var(--shadow-color);
+        z-index: 10;
+    }
+    
+    .polaroid-item img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+    
+    .polaroid-item p {
+        text-align: center;
+        font-family: 'Delius', cursive;
+        font-size: 1rem;
+    }
+    /* Movie Carousel Section */
+    
+    .movies {
+        background-color: var(--dark-color);
+        color: rgb(0, 0, 0);
+        padding: 5rem 0;
+        overflow: hidden;
+    }
+    
+    .movies .section-title {
+        color: rgb(0, 0, 0);
+    }
+    
+    .carousel-container {
+        position: relative;
+        padding: 30px 0;
+    }
+    
+    .carousel-track {
+        display: flex;
+        width: 3600px;
+        /* Large width to ensure continuous flow */
+        animation: scroll 40s linear infinite;
+    }
+    
+    .carousel-track:hover {
+        animation-play-state: paused;
+    }
+    
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-1800px);
+            /* Half of the width */
+        }
+    }
+    
+    .movie {
+        min-width: 300px;
+        height: 180px;
+        margin: 0 15px;
+        background: linear-gradient(135deg, #D4F1F4, #AEE0E6, #8ACCD5);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+    
+    .movie:hover {
+        transform: translateY(-10px);
+    }
+    
+    .movie img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    /* Footer Styles */
+    
+    .footer {
+        background: linear-gradient(135deg, #D4F1F4, #AEE0E6, #8ACCD5);
+        padding: 4rem 5%;
+    }
+    
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .footer-content h3 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .footer-content p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+    }
+    
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+    
+    .social-icon-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: transform 0.3s ease;
+    }
+    
+    .social-icon-wrapper:hover {
+        transform: translateY(-5px);
+    }
+    
+    .social-icon {
+        width: 40px;
+        height: 40px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .social-icon img {
+        width: 24px;
+        height: 24px;
+    }
+    /* Responsive Styles */
+    
+    @media (max-width: 768px) {
+        .header {
+            padding: 1rem 5%;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .nav-menu ul {
+            gap: 1rem;
+        }
+        .text-wrapper h1 {
+            font-size: 3rem;
+        }
+        .text-wrapper h2 {
+            font-size: 1.4rem;
+        }
+        section {
+            padding: 3rem 5%;
+        }
+        .card {
+            width: 180px;
+            height: 240px;
+        }
+        .polaroid-item {
+            width: 180px;
+        }
+        .polaroid-item img {
+            height: 130px;
+        }
+        .social-links {
+            gap: 15px;
+        }
+    }
+</style>
+
+<body>
+    <header class="header">
+        <div class="logo">shadia.co</div>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="portpolio.html">Home</a></li>
+                <li><a href="#" class="current">About me</a></li>
+
+            </ul>
+        </nav>
+
+    </header>
+    <section class="cover-section">
+        <div class="text-wrapper">
+            <h1>Hey There, Explorer!</h1>
+            <h2>Step into my world of stories, passions, and discoveries. Get to know the real me!</h2>
+
+    </section>
+
+
+    <section class="flipping-card">
+        <p>6 Facts About Me</p>
+        <div class="cards-container">
+            <div class="card">
+                <div class="card-face card-front">
+                    <div class="card-icon">🎨</div>
+                    <p>My Favorite Color</p>
+                </div>
+                <div class="card-face card-back">
+                    <p>Black</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-face card-front">
+                    <div class="card-icon">🍔</div>
+                    <p>My Favorite Food</p>
+                </div>
+                <div class="card-face card-back">
+                    <p>Fries and Sinenguelas</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-face card-front">
+                    <div class="card-icon">🎵</div>
+                    <p>My Favorite Song</p>
+                </div>
+                <div class="card-face card-back">
+                    <p>To the bone by Pamungkas</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-face card-front">
+                    <div class="card-icon">📚</div>
+                    <p>My Favorite Books</p>
+                </div>
+                <div class="card-face card-back">
+                    <p>Costa leona series</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-face card-front">
+                    <div class="card-icon">🌎</div>
+                    <p>Dream Destination</p>
+                </div>
+                <div class="card-face card-back">
+                    <p>Mecca, Saudi Arabia</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-face card-front">
+                    <div class="card-icon">🐾</div>
+                    <p>My Pet</p>
+                </div>
+                <div class="card-face card-back">
+                    <p>A cat named Tulingling and two litte kittens</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="polaroid">
+        <h2 class="section-title">Places I've Been</h2>
+        <div class="polaroid-container">
+            <div class="polaroid-item">
+                <img src="../photos/cagayan.jpg" alt="cagayan">
+                <p>Cagayan</p>
+            </div>
+            <div class="polaroid-item">
+                <img src="../photos/bukidnon-forest-park.jpg" alt="bukidnon-forest-park">
+                <p>Bukidnon, Forest park</p>
+            </div>
+            <div class="polaroid-item">
+                <img src="../photos/claveria.jpg" alt="claveria">
+                <p>Claveria</p>
+            </div>
+            <div class="polaroid-item">
+                <img src="../photos/hinatuan.jpg" alt="hinatuan">
+                <p>Hinatuan</p>
+            </div>
+            <div class="polaroid-item">
+                <img src="../photos/davao-crocodile-farm.jpg" alt="davao">
+                <p>Davao, crocodile farm</p>
+            </div>
+            <div class="polaroid-item">
+                <img src="../photos/landang-gua.jpg" alt="landang">
+                <p>Landang Gua</p>
+            </div>
+            <div class="polaroid-item">
+                <img src="../photos/tinuy-an.jpg" alt="tinuy-an">
+                <p>Tinuy-an</p>
+            </div>
+            <div class="polaroid-item">
+                <img src="../photos/baguio.jpg" alt="baguio">
+                <p>Baguio</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="movies">
+        <h2 class="section-title">My Favorite Movies and Animes</h2>
+        <div class="carousel-container">
+            <div class="carousel-track">
+                <!-- First set of movies -->
+                <div class="movie">
+                    <img src="../photos/happy-marriage.jpg" alt="happy-marriage">
+                </div>
+                <div class="movie">
+                    <img src="../photos/flipped.jpg" alt="flipped">
+                </div>
+                <div class="movie">
+                    <img src="../photos/kamisama.jpg" alt="kamisama">
+                </div>
+                <div class="movie">
+                    <img src="../photos/notebook.jpg" alt="The Dark Knight">
+                </div>
+                <div class="movie">
+                    <img src="../photos/kimi.jpg" alt="kimi">
+                </div>
+                <div class="movie">
+                    <img src="../photos/10-things.jpg" alt="10-things">
+                </div>
+                <!-- Duplicate for infinite scroll effect -->
+                <div class="movie">
+                    <img src="../photos/happy-marriage.jpg" alt="happy-marriage">
+                </div>
+                <div class="movie">
+                    <img src="../photos/flipped.jpg" alt="flipped">
+                </div>
+                <div class="movie">
+                    <img src="../photos/kamisama.jpg" alt="kamisama">
+                </div>
+
+                <div class="movie">
+                    <img src="../photos/notebook.jpg" alt="The Dark Knight">
+                </div>
+                <div class="movie">
+                    <img src="../photos/kimi.jpg" alt="kimi">
+                </div>
+                <div class="movie">
+                    <img src="../photos/10-things.jpg" alt="10-things">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>Let's Connect</h3>
+            <p>I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.</p>
+            <div class="social-links">
+                <div class="social-icon-wrapper">
+                    <div class="social-icon">
+                        <img src="instagram-logo.png" alt="Instagram Logo">
+                    </div>
+                    shadee_em
+                </div>
+                <div class="social-icon-wrapper">
+                    <div class="social-icon">
+                        <img src="../photos/facebook.png" alt="Facebook Logo">
+                    </div>
+                    shadia lagoyo
+                </div>
+                <div class="social-icon-wrapper">
+                    <div class="social-icon">
+                        <img src="../photos/twitter-logo.png" alt="Twitter Logo">
+                    </div>
+                    shadqs_123
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 3D Flipping Card Functionality
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('flipped');
+            });
+        });
+
+        // 3D Effect for Polaroid Items
+        const polaroidItems = document.querySelectorAll('.polaroid-item');
+
+        polaroidItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.classList.add('active');
+            });
+
+            item.addEventListener('mouseleave', () => {
+                item.classList.remove('active');
+            });
+
+            // Add random slight rotation for realistic polaroid effect
+            const randomRotation = Math.random() * 6 - 3; // -3 to +3 degrees
+            item.style.transform = `rotate(${randomRotation}deg)`;
+        });
+
+        // 3D movement effect for polaroids based on mouse position
+        const polaroidSection = document.querySelector('.polaroid');
+
+        polaroidSection.addEventListener('mousemove', (e) => {
+            const {
+                left,
+                top,
+                width,
+                height
+            } = polaroidSection.getBoundingClientRect();
+            const x = e.clientX - left;
+            const y = e.clientY - top;
+
+            const moveX = (x - width / 2) / 25;
+            const moveY = (y - height / 2) / 25;
+
+            polaroidItems.forEach(item => {
+                if (!item.classList.contains('active')) {
+                    const randomIntensity = Math.random() * 0.8 + 0.2; // 0.2 to 1.0
+                    const baseRotate = item.style.transform.match(/rotate\(([^)]+)\)/) || ['', '0deg'];
+                    item.style.transform = `rotate(${baseRotate[1]}) perspective(1000px) rotateY(${moveX * randomIntensity}deg) rotateX(${-moveY * randomIntensity}deg)`;
+                }
+            });
+        });
+
+        // Reset polaroid transformations when mouse leaves section
+        polaroidSection.addEventListener('mouseleave', () => {
+            polaroidItems.forEach(item => {
+                const baseRotate = item.style.transform.match(/rotate\(([^)]+)\)/) || ['', '0deg'];
+                item.style.transform = `rotate(${baseRotate[1]})`;
+            });
+        });
+
+        // Ensure carousel animation continues infinitely
+        const carouselTrack = document.querySelector('.carousel-track');
+        carouselTrack.addEventListener('animationend', () => {
+            carouselTrack.style.animation = 'none';
+            setTimeout(() => {
+                carouselTrack.style.animation = 'scroll 40s linear infinite';
+            }, 10);
+        });
+    </script>
+</body>
+
+</html>
